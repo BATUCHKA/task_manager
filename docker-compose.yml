@@ -1,0 +1,48 @@
+version: "3"
+services:
+  flask-app:
+    container_name: flask-task-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/app/flask_app
+    ports:
+      - "5001:5000"
+    depends_on:
+      - mysql-db
+    networks:
+      - task-network
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-task-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "task_manager"
+      MYSQL_USER: "task_user"
+      MYSQL_PASSWORD: "task_password"
+    volumes:
+      - task-db-data:/var/lib/mysql
+    networks:
+      - task-network
+
+  adminer:
+    image: adminer
+    container_name: task-adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - task-network
+    depends_on:
+      - mysql-db
+
+networks:
+  task-network:
+    driver: bridge
+
+volumes:
+  task-db-data:
