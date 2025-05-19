@@ -1,6 +1,5 @@
-// Add event listener when document is ready
+// event listen hiih js file
 document.addEventListener('DOMContentLoaded', function () {
-  // Add confirmation for delete buttons
   const deleteButtons = document.querySelectorAll('.btn-danger');
   deleteButtons.forEach(button => {
     button.addEventListener('click', function (e) {
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Auto-hide alerts after 5 seconds
+  // delaytei alert nuuh
   const alerts = document.querySelectorAll('.alert');
   alerts.forEach(alert => {
     setTimeout(function () {
